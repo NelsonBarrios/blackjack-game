@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="description" content="Free multiplayer Blackjack casino game. Play Blackjack online with your friends!">
+  <meta name="keywords" content="blackjack, io, casino, online, multiplayer, friends, game, card game, 21">
+  <meta property="og:title" content="JUEGA BLACKJACK CON TUS AMIGOS">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://blackjack21.io">
+  <meta property="og:image" itemprop="image" content="https://i.ibb.co/fHkyMJS/blackjack21-showcase.jpg">
+  <title>Blackjack</title>
+  <link rel="stylesheet" href="/css/dist/style.css">
+  <link rel="stylesheet" href="/css/style.scss">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Play&family=Roboto&family=Rubik&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Luckiest+Guy&family=Ultra&display=swap" rel="stylesheet">
+  <link rel="icon" href="/imgs/chips/Casino_Chip_Red.svg">
+</head>
+<body>
+  <div class="cardImg dealerCardImg hide-element"></div>
+
+
+  <div id="loading-screen" class="hide-element">
+    <img id="loading-icon" src="/imgs/LoadingIcon.png" alt="Loading...">    
+  </div>
+
+  <div id="info-rules">
+    <div id="how-to-play">
+      CÓMO JUGAR
+    </div>
+    <div id="info-rules-overflow">
+    <div>
+      <h1 id="h1margin">OBJETIVO DEL JUEGO</h1>
+      <P>
+        Cada participante intenta ganarle al crupier contando lo más cerca posible de 21, sin pasar de 21.
+      </P>
+    </div>
+    <div>
+      <h1>VALORES DE TARJETA / PUNTUACIÓN</h1>
+      <p>
+        Por lo general, depende de cada jugador individual si un as vale 1 u 11. Sin embargo, en este juego, si un jugador se
+        planta con un as, siempre contará el as como 11 si su suma total no excede 21. Las figuras son 10 y cualquier otra carta
+        tiene su valor original.</p>
+    </div>
+    <div>
+      <h1>APUESTA</h1>
+      <p>
+        Antes de que el crupier comience a repartir cartas, cada jugador debe realizar una apuesta.</p>
+    </div>
+    <div>
+      <h1>EL TRATO</h1>
+      <p>
+        La ronda comienza cuando el crupier reparte 2 cartas a cada jugador. También se da una carta boca arriba y una carta
+        boca abajo.</p>
+    </div>
+    <div>
+      <h1>NATURALES</h1>
+      <p>
+        Si un jugador cuenta hasta 21 en las primeras 2 cartas, el jugador obtiene Blackjack. Blakjack paga 3:2 directamente al
+        jugador y esperará hasta la próxima ronda para volver a jugar.</p>
+    </div>
+    <div>
+      <h1>EL JUEGO</h1>
+      <p>
+        Ahora es el momento de que el primer jugador haga su movimiento.
+        El jugador puede pedir, plantarse o doblar.
+        <ul>
+          <li><strong style="color: green">Pedir</strong> = Pide otra tarjeta para intentar acercarte a 21.</li>
+          <li><strong style="color: red">Parar</strong> = No pidas cartas, pasa al siguiente jugador</li>
+          <li><strong style="color: goldenrod">Doblar</strong> = Dobla la apuesta y pide otra carta. (Solo puede doblar una vez por ronda y no puede robar más cartas después de doblar).</li>
+        </ul>
+      </p>
+    </div>
+    <div>
+      <h1>EL JUEGO DEL DISTRIBUIDOR</h1>
+      <p>
+        El crupier comienza dando la vuelta a su carta boca abajo. El crupier robará hasta que llegue a 17, cuando la suma del
+        crupier sea 17 o más, dejará de tomar cartas.
+      </p>
+    </div>
+    <div>
+      <h1>PAGAR</h1>
+      <p>
+        <ul>
+          <li>Si el jugador se pasa, perderá su apuesta, incluso si el crupier también se pasa.</li>
+          <li>Si el jugador tiene cartas de mayor valor que el crupier, el jugador gana.</li>
+          <li>Si el crupier tiene cartas de mayor valor que el jugador, el crupier gana.</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <div id="main-menu" class="">
+    <h1 id="blackjack-title">black<span>jack</span></h1>
+    <!-- <img id="blackjack-title" src="/imgs/blackjack21io.png" alt="blackjack21.io"> -->
+    <div id="main-box">
+      <div id="avatar-box">
+        <button class="prev" onclick="plusSlides(-1)">
+          <i class="fas fa-chevron-left"></i>          
+        </button>
+        <span class="slideAvatars" data-value="user">
+          <div class="numbertext">1 / 8</div>
+          <img src="/imgs/avatars/user.svg" alt="avatar">
+        </span>
+        <span class="slideAvatars" data-value="mafia" style="display: none;">
+          <div class="numbertext">2 / 8</div>
+          <img src="/imgs/avatars/mafia.svg" alt="avatar">
+        </span>
+        <span class="slideAvatars" data-value="casino" style="display: none;">
+          <div class="numbertext">3 / 8</div>
+          <img src="/imgs/avatars/casino.svg" alt="avatar">
+        </span> 
+        <span class="slideAvatars" data-value="baby" style="display: none;">
+          <div class="numbertext">4 / 8</div>
+          <img src="/imgs/avatars/baby.svg" alt="avatar">
+        </span> 
+        <span class="slideAvatars" data-value="terrorist" style="display: none;">
+          <div class="numbertext">5 / 8</div>
+          <img src="/imgs/avatars/terrorist.svg" alt="avatar">
+        </span> 
+        <span class="slideAvatars" data-value="detective" style="display: none;">
+          <div class="numbertext">6 / 8</div>
+          <img src="/imgs/avatars/detective.svg" alt="avatar">
+        </span> 
+        <span class="slideAvatars" data-value="work-out" style="display: none;">
+          <div class="numbertext">7 / 8</div>
+          <img src="/imgs/avatars/work-out.svg" alt="avatar">
+        </span> 
+        <span class="slideAvatars" data-value="manager" style="display: none;">
+          <div class="numbertext">8 / 8</div>
+          <img src="/imgs/avatars/manager.svg" alt="avatar">
+        </span>
+        <button class="next" onclick="plusSlides(1)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+
+      </div>
+      <div>
+        <input id="nickname" type="text" placeholder="Nombre" maxlength="12">
+      </div>
+      <div>
+        <button id="btnOffline" class="play-btns noclick-nohide"><span><i class="fas fa-user"></i></span> Jugar Offline</button>
+      </div>
+      <div>
+        <button id="btnCreate" class="play-btns noclick-nohide"><span><i class="fas fa-users"></i></span> Crear Sala</button>
+      </div>
+      <div>
+        <button id="btnJoin" class="play-btns noclick-nohide hide-element"><span><i class="fas fa-users"></i></span>Unirse a la sala</button>
+      </div>
+    </div>
+
+    <div id="about-box">
+      <strong>blackjack</strong> es un juego de casino multijugador gratuito. Es una versión en línea del blackjack tradicional que se juega en casinos
+      reales, con algunas excepciones.
+      <ul>
+        <li>Cada juego utiliza 1 paquete estándar de 52 cartas que se baraja en cada ronda.</li>
+        <li>La versión actual del juego no es compatible con la división de tarjetas y seguros.</li>
+        <li>Una sala privada puede constar de hasta 7 jugadores.</li>
+      </ul>
+      <button id="about">
+        Sobre
+      </button>
+    </div>
+    <a id="credits" href="/credits" target="_blank">Créditos</a>
+  </div>
+
+
+  <div id="game-room" class="hide-element">
+
+
+    <div id="dark-overlay"></div>
+
+    <div id="table-graphics"></div>
+    <!-- <img id="table-graphics" src="/imgs/table-graphics3.svg" alt=""> -->
+
+  <!-- <div id="leave-box"> -->
+    <!-- <i class="fas fa-sign-out-alt"></i> -->
+    <button id="leave-button" onclick="exitRoom()">
+      <i class="fas fa-sign-out-alt"></i>
+      SALIR DE LA SALA
+    </button>
+  <!-- </div> -->
+  <button id="leave-table" class="noclick">
+    <i class="far fa-arrow-alt-circle-left"></i>
+    DEJAR MESA
+  </button>
+
+  <div id="invite-link-box">
+    <div id="invite-label">Coloca el cursor para ver el enlace de invitación</div>
+    <input id="invite-link" type="text">
+    <button>COPIAR</button>
+  </div>
+
+  <div id="volume-button">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <div id="bg-color-box">
+    <div class="bg-colors bg-selected" id="bg-green"></div>
+    <div class="bg-colors" id="bg-blue"></div>
+    <div class="bg-colors" id="bg-purple"></div>
+    <div class="bg-colors" id="bg-red"></div>
+    <div class="bg-colors" id="bg-brown"></div>
+  </div>
+
+
+  <div id="player-result-big" class="hide-element">
+    <div id="player-result-big-answer"></div>
+    <div id="player-result-sum-box">
+      <span id="player-result-big-plus-minus"></span>
+      <span id="player-result-big-sum"></span>
+    </div>
+  </div>
+
+  <div id="deal-start-label" class="hide-element">
+    <p>Esperando apuestas <span id="seconds">39</span><span>.</span><span id="milliseconds">9</span></p>
+    <!-- </span><span>.</span><span id="milliseconds"></span> -->
+  </div>
+
+  <div id="join-mid-game-label" class="hide-element">
+    Juego actualmente en curso...
+  </div>
+
+  <div id="users-online-box">
+    <div>
+      <div id="users-online-label">USUARIOS EN SALA</div>
+      <div id="users-online-button"><i class="fas fa-chevron-right"></i></div>
+    </div>
+    <ul id="users-online-container">
+
+    </ul>
+  </div>
+
+
+
+  <div id="dealer">
+    <h1>CRUPIER</h1>
+    <div id="dealerSum">suma aquí</div>
+    <div class="dealer-cards">
+      <div class="visibleCards">
+        <!-- <img class="dealerCardImg" src="/imgs/Diamond7.svg">
+        <img class="dealerCardImg" src="/imgs/Diamond7.svg">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img class="dealerCardImg card-front" src="/imgs/Card_back.svg">
+            </div>
+            <div class="flip-card-back">
+              <img class="dealerCardImg card-back" src="/imgs/Diamond7.svg">
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <img class="dealerCardImg" src="/imgs/Diamond7.svg"> -->
+        <!-- <img class="dealerCardImg hiddenCard" src="/imgs/Diamond7.svg"> -->
+      </div>
+      <!-- <div class="hiddenCard">
+        <img src="/imgs/Card_back.svg" alt="">
+      </div> -->
+    </div>
+  </div>
+  <div class="user-action-container hide-element">
+    <div id="your-turn-label">TOMA UNA DECISION</div>
+    <div class="user-action-box">
+      <button class="user-action" id="stand"><i class="fas fa-hand-paper"></i></button>
+      <div class="user-action-text">PARAR</div>
+    </div>
+    <div class="user-action-box">
+      <button class="user-action" id="hit"><i class="fas fa-hand-pointer"></i></button>
+      <div class="user-action-text">PEDIR</div>
+    </div>
+    <div class="user-action-box">
+      <button class="user-action" id="doubleDown"><i class="fas fa-hand-peace"></i><span>2X</span></button>
+      <div class="user-action-text">DOBLAR</div>
+    </div>
+  </div>
+  <div id="players-container">
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+
+    <span class="players">
+      <div><button class="ready hide-element">HACER APUESTA</button></div>
+      <div class="empty-slot"><i class="fas fa-user-plus"></i></div>
+      <div class="player-name hide-element">nombre aquí<span class="hide-element"><img class="player-avatar" src="" alt="avatar"></span></div>
+      <div class="player-sum">suma aquí</div>
+      <div class="player-coin hide-element">apostar aquí<div class="player-bet hide-element"></div></div>
+      <div class="player-result hide-element">Ganar/Perder/Empatar</div>
+      <div class="player-cards">
+
+      </div>
+    </span>
+  </div>
+
+  <div id="players-timer-container">
+    <svg class="players-timer">
+      <circle class="" cx="48.5" cy="48.5" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="58.5" cy="58.5" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="58.5" cy="58.5" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="58.5" cy="58.5" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="58.5" cy="50" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="58.5" cy="58.5" r="45" stroke-width="4" fill="transparent"/>
+    </svg>
+    <svg class="players-timer">
+      <circle class="" cx="50" cy="50" r="48" stroke-width="4" fill="transparent"/>
+    </svg>
+  </div>
+
+  <div id="bets-container" class="noclick">
+    <span>
+      <button class="max-clear update-balance-bet">VACIAR</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip10" value="10">10</button>
+      <!-- <img src="/imgs/chips/Casino_Chip_White2.svg" alt="">    -->
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip50" value="50">50</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip100" value="100">100</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip500" value="500">500</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip1k" value="1000">1K</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip5k" value="5000">5K</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip10k" value="10000">10K</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip50k" value="50000">50K</button>
+    </span>
+    <span>
+      <button class="betButtons update-balance-bet" id="chip100k" value="100000">100K</button>
+    </span>
+    <span>
+      <button class="max-clear update-balance-bet">MAX</button>
+    </span>
+
+
+  </div>
+  <!-- <div id="dealer">
+    <h2>Dealer</h2>
+    <div id="dealerSum">sum here</div>
+    <div class="dealer-cards">
+      <div class="visibleCards">
+
+      </div>
+ 
+    </div>
+  </div> -->
+  <div id="balance-bet-box">
+    <div class="balance-bet">
+      Saldo
+      <div id="balance"></div>
+    </div>
+    <div class="balance-bet">
+      Apuesta total
+      <div id="total-bet"></div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- PRE-LOAD DECK IMAGES -->
+<div class="hidden">
+	<script>
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+        "/imgs/Heart2.svg",
+        "/imgs/Heart3.svg",
+        "/imgs/Heart4.svg",
+        "/imgs/Heart5.svg",
+        "/imgs/Heart6.svg",
+        "/imgs/Heart7.svg",
+        "/imgs/Heart8.svg",
+        "/imgs/Heart9.svg",
+        "/imgs/Heart10.svg",
+        "/imgs/HeartJ.svg",
+        "/imgs/HeartQ.svg",
+        "/imgs/HeartK.svg",
+        "/imgs/HeartA.svg",
+        "/imgs/Diamond2.svg",
+        "/imgs/Diamond3.svg",
+        "/imgs/Diamond4.svg",
+        "/imgs/Diamond5.svg",
+        "/imgs/Diamond6.svg",
+        "/imgs/Diamond7.svg",
+        "/imgs/Diamond8.svg",
+        "/imgs/Diamond9.svg",
+        "/imgs/Diamond10.svg",
+        "/imgs/DiamondJ.svg",
+        "/imgs/DiamondQ.svg",
+        "/imgs/DiamondK.svg",
+        "/imgs/DiamondA.svg",
+        "/imgs/Spade2.svg",
+        "/imgs/Spade3.svg",
+        "/imgs/Spade4.svg",
+        "/imgs/Spade5.svg",
+        "/imgs/Spade6.svg",
+        "/imgs/Spade7.svg",
+        "/imgs/Spade8.svg",
+        "/imgs/Spade9.svg",
+        "/imgs/Spade10.svg",
+        "/imgs/SpadeJ.svg",
+        "/imgs/SpadeQ.svg",
+        "/imgs/SpadeK.svg",
+        "/imgs/SpadeA.svg",
+        "/imgs/Club2.svg",
+        "/imgs/Club3.svg",
+        "/imgs/Club4.svg",
+        "/imgs/Club5.svg",
+        "/imgs/Club6.svg",
+        "/imgs/Club7.svg",
+        "/imgs/Club8.svg",
+        "/imgs/Club9.svg",
+        "/imgs/Club10.svg",
+        "/imgs/ClubJ.svg",
+        "/imgs/ClubQ.svg",
+        "/imgs/ClubK.svg",
+        "/imgs/ClubA.svg"
+			)
+	</script>
+</div>
+
+
+  <script type="text/javascript" src="js/lib/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="/js/app.js"></script>
+  <script type="text/javascript" src="/js/client.js"></script>
+
+  <!-- Sounds -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+  <script>
+    let dealingSound = new Howl({
+      src: ['sounds/dealing_card_fix3.mp3']
+    });
+    let chipHover = new Howl({
+      src: ['sounds/chip_hover_fix.mp3']
+    });
+    let chipPlace = new Howl({
+      src: ['sounds/chip_place.mp3']
+    });
+    let actionClick = new Howl({
+      src: ['sounds/actionClick.mp3']
+    });
+    let defaultClick = new Howl({
+      src: ['sounds/click_default.mp3']
+    });
+    let clickFiller = new Howl({
+      src: ['sounds/click_filler.mp3']
+    });
+    let timerRunningOut = new Howl({
+      src: ['sounds/timer_running_out.mp3']
+    });
+
+    // let youWin = new Howl({
+    //   src: ['sounds/you_win.mp3']
+    // });
+    // let youLose = new Howl({
+    //   src: ['sounds/you_lose.mp3']
+    // });
+
+
+    $(".betButtons").hover(function() {
+      chipHover.play();
+      }, function () {
+        // play nothing when mouse leaves chip
+    });
+
+  </script>
+</body>
+</html>
